@@ -1,18 +1,22 @@
+// Complexity: O(nlogn)
 static int hackerlandRadioTransmitters(int[] x, int k) {
-    Arrays.sort(x);
-    int noOfTransmitters = 0;
-    int i=0;
-    int length = x.length;
-    while(i<length){
-        noOfTransmitters++;
-        int loc = x[i]+k;
-        while(i<length && x[i] <= loc){
-            i++;
+        int len = x.length;
+        //Sort Array
+        Arrays.sort(x);
+        int noOfTransmitter = 0;
+        for(int i=0; i<len;){
+            noOfTransmitter++;
+            int location = x[i] + k;
+            // Cover left side to distance K
+            while(i<len && x[i]<=location){
+                i++;
+            }
+            //update Location 
+            location = x[--i] + k;
+            //Cover right side to distance K
+            while(i<len && x[i] <= location){
+                i++;
+            }
         }
-        loc = x[--i]+k;
-        while(i<length && x[i]<=loc){
-            i++;
-        }
+        return noOfTransmitter;
     }
-    return noOfTransmitters;
-}
